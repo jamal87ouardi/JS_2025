@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>To-do List avec Commentaires</title>
+  <style>
+    .done {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .comment-section {
+      margin-top: 10px;
+      padding-left: 20px;
+      font-style: italic;
+      color: darkgray;
+    }
+    .task-container {
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    button,li {
+        margin: 5px;
+    }
+    
+  </style>
+</head>
+<body>
+  <h1>To-do List avec Commentaires</h1>
+  <input type="text" id="taskInput" placeholder="Nouvelle tâche">
+  <button id="addTaskBtn">Ajouter</button>
+  <ul id="taskList"></ul>
+
+  <script>
+    // Récupère les éléments du DOM
+    const input = document.getElementById("taskInput");
+    const addButton = document.getElementById("addTaskBtn");
+    const taskList = document.getElementById("taskList");
+
+    // Fonction pour ajouter une nouvelle tâche
+    addButton.addEventListener("click", () => {
+      const taskText = input.value.trim(); // Récupère le texte de la tâche
+
+      // Si l'input est vide, on ne fait rien
+      if (taskText === "") return;
+
+      // Crée un conteneur pour la tâche avec ses commentaires
+      const taskContainer = document.createElement("div");
+      taskContainer.classList.add("task-container");
+
+      // Crée un élément <li> pour la tâche
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      // Crée le bouton pour marquer la tâche comme faite
+      const doneBtn = document.createElement("button");
+      doneBtn.textContent = "✅"; // Emoji pour "faire"
+      
+      // Ajoute un événement au bouton pour marquer la tâche comme faite
+      doneBtn.addEventListener("click", () => {
+        li.classList.toggle("done"); // Ajoute ou enlève la classe "done" pour barrer la tâche
+      });
+
+      // Crée le bouton pour supprimer la tâche
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "❌"; // Emoji pour "supprimer"
+      
+      // Ajoute un événement au bouton pour supprimer la tâche
+      deleteBtn.addEventListener("click", () => {
+        taskContainer.remove(); // Supprime tout le conteneur de la tâche
+      });
+
+      // Ajoute les boutons à la tâche
+      li.appendChild(doneBtn);
+      li.appendChild(deleteBtn);
+
+      // Ajoute la tâche au conteneur
+      taskContainer.appendChild(li);
+
+      // Crée un champ de saisie pour ajouter un commentaire
+      const commentInput = document.createElement("input");
+      commentInput.type = "text";
+      commentInput.placeholder = "Ajouter un commentaire...";
+
+      // Ajoute un événement pour détecter la touche Entrée
+      commentInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          const commentText = commentInput.value.trim(); // Récupère le texte du commentaire
+
+          // Si le commentaire est vide, ne rien faire
+          if (commentText === "") return;
+
+          // Crée un paragraphe pour afficher le commentaire
+          const commentParagraph = document.createElement("p");
+          commentParagraph.textContent = commentText;
+
+          // Ajoute le commentaire à la section des commentaires
+          const commentSection = document.createElement("div");
+          commentSection.classList.add("comment-section");
+          commentSection.appendChild(commentParagraph);
+
+          // Ajoute la section des commentaires sous la tâche
+          taskContainer.appendChild(commentSection);
+
+          // Réinitialise le champ de commentaire
+          commentInput.value = "";
+        }
+      });
+
+      // Ajoute le champ de commentaire à la tâche
+      taskContainer.appendChild(commentInput);
+
+      // Ajoute la tâche (avec commentaires) à la liste de tâches
+      taskList.appendChild(taskContainer);
+
+      // Réinitialise le champ de saisie de la tâche
+      input.value = "";
+    });
+  </script>
+</body>
+</html>

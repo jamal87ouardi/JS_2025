@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste de Tâches</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h2 {
+      margin-top: 30px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 8px 0;
+      padding: 10px;
+      background-color: #f3f3f3;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      margin-left: 10px;
+    }
+    .done {
+      background-color: #d1ffd1;
+      width: 300px;
+    }
+
+    .inprogress {
+        background-color: #eca589;
+        width: 300px;
+    }
+
+    .doneBtn {
+        align-self: right;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ma Liste de Tâches</h1>
+  <input type="text" id="taskInput" placeholder="Ajouter une tâche...">
+  <button id="addTaskBtn" style="width: 100px; background-color: antiquewhite; border-radius: 5px;">Ajouter</button>
+
+  <h2>📝 En cours</h2>
+  <ul id="inProgressList"></ul>
+
+  <h2>✅ Terminé  <button id="delDone" style="width: 100px; margin-left: 40px; background-color: antiquewhite; border-radius: 5px">Clear</button>  </h2> 
+  <ul id="completedList"></ul>
+
+  <script>
+    const input = document.getElementById("taskInput");
+    const addBtn = document.getElementById("addTaskBtn");
+    const delDone = document.getElementById("delDone");
+    const inProgressList = document.getElementById("inProgressList");
+    const completedList = document.getElementById("completedList");
+
+    addBtn.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (text === "") return;
+
+      const li = document.createElement("li");
+      li.textContent = text;
+      li.classList.add("inprogress");
+
+      const doneBtn = document.createElement("button");
+      doneBtn.textContent = "Achevée";
+      doneBtn.classList.add("doneBtn");
+
+      doneBtn.addEventListener("click", () => {
+        // Marque la tâche comme faite
+        li.classList.remove("inprogress");
+
+        li.classList.add("done");
+
+        // Supprime le bouton "Achevée"
+        doneBtn.remove();
+
+        // Déplace la tâche dans la liste "Terminé"
+        completedList.appendChild(li);
+      });
+
+      li.appendChild(doneBtn);
+      inProgressList.appendChild(li);
+
+      input.value = "";
+    });
+
+    delDone.addEventListener("click", () => {
+        completedList.innerHTML = "";
+    
+    });
+  </script>
+
+</body>
+</html>

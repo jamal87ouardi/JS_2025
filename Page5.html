@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Location de voiture</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    select, input[type="number"], button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    .checkbox-group {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Location de voiture</h2>
+
+  <form id="locationForm">
+    <label for="typeVoiture">Type de voiture :</label>
+    <select id="typeVoiture" name="typeVoiture" required>
+      <option value="">-- Sélectionnez --</option>
+      <option value="citadine">Citadine (200 dh)</option>
+      <option value="berline">Berline (320 dh)</option>
+      <option value="SUV">SUV (450 dh)</option>
+      
+    </select>
+
+    <label for="jours">Nombre de jours :</label>
+    <input type="number" id="jours" name="jours" min="1" required>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="gps" name="gps">
+      <label for="gps">Service GPS (80 dh par jour)</label>
+    </div>
+
+    <div class="buttons">
+      <button type="submit">Ajouter</button>
+      <button type="reset">Réinitialiser</button>
+    </div>
+  </form>
+
+  <script>
+   
+  </script>
+
+</body>
+</html>

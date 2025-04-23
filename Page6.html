@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>document</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    select, input[type="number"], button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    .checkbox-container {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      left:100px;
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+  <h2> Réservation de chambre </h2>
+
+  <form id="reservationForm" action="create.php" method="POST">
+    <label for="typeChambre">Type de chambre :</label>
+    <select id="typeChambre" name="typeChambre" required>
+      <option value=""> Sélectionnez </option>
+      <option value="simple">Simple (250 dh)</option>
+      <option value="double">Double (400 dh)</option>
+      <option value="suite">Suite (550 dh)</option>
+    </select>
+
+    <label for="nuitees">Nombre de nuitées :</label>
+    <input type="number" id="nuitees" name="nuitees" min="1" required>
+
+    <div class="checkbox-container">
+      <input type="checkbox" id="petitDejeuner" name="petitDejeuner">
+      <label for="petitDejeuner">Petit déjeuner (+50 dh / nuit)</label>
+    </div>
+
+    <div class="buttons">
+      <button type="submit">Calculer Total</button>
+      <button type="reset">Réinitialiser</button>
+    </div>
+  </form>
+
+  <label id="totalPrice">--</label>
+
+  <script>
+   
+      $('#reservationForm').on('submit', function (e) {
+        e.preventDefault();
+
+        let typeChambre = $('#typeChambre').val();
+        let nuitees = parseInt($('#nuitees').val());
+        let avecPetitDejeuner = $('#petitDejeuner').is(':checked');
+
+        
+
+        let prixParNuit = 0;
+
+        switch (typeChambre) {
+          case 'simple':
+            prixParNuit = 250;
+            break;
+          case 'double':
+            prixParNuit = 400;
+            break;
+          case 'suite':
+            prixParNuit = 550;
+            break;
+        }
+
+        if (avecPetitDejeuner) {
+          prixParNuit += 50;
+        }
+
+        let total = prixParNuit * nuitees;
+        $('#totalPrice').text('Total: ' + total + ' dh');
+      });
+
+      $('#reservationForm').on('reset', function () {
+        $('#totalPrice').text('--');
+      });
+  
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réservation de chambre</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+
+    .checkbox-group {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      
+    }
+
+    .buttons {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Réservation de chambre</h2>
+
+  <form id="reservationForm">
+    <label for="typeChambre">Type de chambre :</label>
+    <select id="typeChambre" name="typeChambre" required>
+      <option value="">-- Sélectionnez --</option>
+      <option value="simple">Simple (250 dh)</option>
+      <option value="double">Double (400 dh)</option>
+      <option value="suite">Suite (550 dh)</option>
+    </select>
+
+    <label for="nuitees">Nombre de nuitées :</label>
+    <input type="number" id="nuitees" name="nuitees" min="1" required>
+
+    <div class="checkbox-group">
+        <input type="checkbox" id="petitDej" name="petitDej">
+        <label for="petitDej">Avec petit déjeuner (50 dh par nuité)</label>
+      </div>
+
+    <div class="buttons">
+      <button type="submit">Calculer Total</button>
+      <button type="reset">Réinitialiser</button>
+    </div>
+
+  </form>
+  <label id="totalPrice">--</label>
+  <script>
+    
+  </script>
+
+</body>
+</html>

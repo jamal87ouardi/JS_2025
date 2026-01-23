@@ -62,15 +62,56 @@
       </div>
 
     <div class="buttons">
-      <button type="submit">Calculer Total</button>
-      <button type="reset">Réinitialiser</button>
+      <input type="button" id="btnCalculer" value="Calculer Total">
+      <input type="reset" value="Réinitialiser">
     </div>
 
   </form>
   <label id="totalPrice">--</label>
   <script>
-    
-  </script>
+  const form = document.getElementById("reservationForm");
+  const totalLabel = document.getElementById("totalPrice");
+  const btnCalculer = document.getElementById("btnCalculer");
+
+  btnCalculer.addEventListener("click", function () {
+    const typeChambre = document.getElementById("typeChambre").value;
+    const nuitees = parseInt(document.getElementById("nuitees").value);
+    const petitDej = document.getElementById("petitDej").checked;
+
+    if (typeChambre === "" || isNaN(nuitees) || nuitees < 1) {
+      totalLabel.textContent = "Veuillez remplir correctement le formulaire";
+      return;
+    }
+
+    let prixChambre = 0;
+
+    switch (typeChambre) {
+      case "simple":
+        prixChambre = 250;
+        break;
+      case "double":
+        prixChambre = 400;
+        break;
+      case "suite":
+        prixChambre = 550;
+        break;
+    }
+
+    let total = prixChambre * nuitees;
+
+    if (petitDej) {
+      total += 50 * nuitees;
+    }
+
+    totalLabel.textContent = `Total à payer : ${total} DH`;
+  });
+
+  // Réinitialisation de l'affichage
+  form.addEventListener("reset", function () {
+    totalLabel.textContent = "--";
+  });
+</script>
+
 
 </body>
 </html>

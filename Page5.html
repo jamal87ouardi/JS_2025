@@ -63,14 +63,45 @@
     </div>
 
     <div class="buttons">
-      <button type="submit">Ajouter</button>
+      <button type="submit">calculer</button>
       <button type="reset">Réinitialiser</button>
     </div>
   </form>
 
   <script>
-   
-  </script>
+  const form = document.getElementById("locationForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // empêche le rechargement de la page
+
+    const typeVoiture = document.getElementById("typeVoiture").value;
+    const jours = Number(document.getElementById("jours").value);
+    const gps = document.getElementById("gps").checked;
+
+    let prixParJour = 0;
+
+    switch (typeVoiture) {
+      case "citadine":
+        prixParJour = 200;
+        break;
+      case "berline":
+        prixParJour = 320;
+        break;
+      case "SUV":
+        prixParJour = 450;
+        break;
+    }
+
+    let total = prixParJour * jours;
+
+    if (gps) {
+      total += 80 * jours;
+    }
+
+    alert("Prix total de la location : " + total + " DH");
+  });
+</script>
+
 
 </body>
 </html>

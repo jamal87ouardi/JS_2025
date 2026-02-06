@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Formation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        label, select, input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Inscription à une formation</h2>
+    <form>
+        <label for="typeFormation">Type de formation :</label>
+        <select id="typeFormation" name="typeFormation">
+            <option value="dev">Développement (3400 dh)</option>
+            <option value="design">Design (2800 dh)</option>
+            <option value="marketing">Marketing (2500 dh)</option>
+        </select>
+        
+        <label>Mode de formation :</label>
+        <div class="radio-group">
+            <label><input type="radio" id="presentiel" name="modeFormation" value="presentiel" checked> Présentiel</label>
+            <label><input type="radio" id="distanciel" name="modeFormation" value="distanciel"> Distanciel (10% de réduction)</label>
+        </div>
+        
+        <label>
+            <input type="checkbox" id="loyal" name="clientFidele"> Client fidèle (15% de réduction)
+        </label>
+        
+        <button type="button" onclick="calculer()">Calculer</button>
+        <button type="reset">Réinitialiser</button> <br><br>
+        <label id="price">--</label>
+    </form>
+    
+    <script>
+        
+        function calculer() {
+            let type = document.getElementById("typeFormation").value;
+            let presentiel = document.getElementById("presentiel").checked;
+            let distanciel = document.getElementById("distanciel").checked;
+            let loyal = document.getElementById("loyal").checked;
+
+            let prix = 0;
+
+           
+            if (type === "dev") {
+                prix = 3400;
+            } else if (type === "design") {
+                prix = 2800;
+            } else if (type === "marketing") {
+                prix = 2500;
+            }
+
+            if (distanciel) {
+                prix = prix - (prix * 0.10);
+            }
+
+          
+            if (loyal) {
+                prix = prix - (prix * 0.15);
+            }
+
+            document.getElementById("price").innerText = 
+                "Le prix à payer est : " + prix.toFixed(2) + " DH";
+        }
+
+    </script>
+</body>
+</html>

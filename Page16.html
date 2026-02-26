@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form validation 2</title>
+    <style>
+    
+    .c1 {
+
+    position: relative;
+    top: 50px;
+    left: 100px;
+    background-color: rgb(238, 187, 192);
+    width: 600px;
+    height: 530px;
+    border-radius: 10px;
+    }
+
+    .c1 td {
+    padding: 10px;
+    }
+
+    .c1 * {
+
+    margin: 10px;
+
+    }
+
+    .c4 {
+
+    background-color: rgb(135, 168, 192);
+    padding: 5px;
+    width: 150px;
+    border-radius: 10px;
+    }
+
+
+    .c5 {
+
+    background-color: rgb(154, 239, 170);
+    padding: 5px;
+    width: 150px;
+    border-radius: 10px;
+    }
+
+    .s1 {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(216, 216, 26);
+    color: rgb(15, 74, 125);
+    width: 80px;
+    border: 1px;
+
+    }
+
+    .s1:hover {
+    background-color: rgb(229, 247, 148);
+    }
+
+    
+    </style>
+</head>
+<body>
+    
+    <div class="c1">
+        <form>
+            <table>
+                    
+                    <tr>
+                        <td>Nom:</td>
+                        <td>
+
+                            <input type="text" id="nom"> <label id="l1" hidden></label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Prenom:</td>
+                        <td>
+
+                            <input type="text" id="prenom"><label id="l2"  hidden></label>
+                        </td>
+                    </tr>
+
+                   
+
+                    <tr>
+                        <td>Email:</td>
+                        <td>
+
+                            <input type="email" id="mail"><label id="l3"  hidden></label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Password:</td>
+                        <td>
+
+                            <input type="password" id="pass"><label id="l4"  hidden></label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Confirm Password:</td>
+                        <td>
+
+                            <input type="password" id="passco" disabled><label id="l5"  hidden></label>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td>Niveau d'etudes:</td>
+                        <td>
+
+                            <select name="ne" id="ne" >
+                                <option value="raw">--Please choose--</option>
+                                <option value="n1">Bac</option>
+                                <option value="n2">Bac + 2</option>
+                                <option value="n3">Bac + 5</option>
+                                
+                                
+                            </select>
+                            
+                            <label id="l6"   hidden></label>
+
+                        </td>
+                    </tr>
+                         
+                    
+                    <tr>
+                        <td>Télephone:</td>
+                        <td>
+
+                            <input type="tel" id="phone"><label id="l7"  hidden></label>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <input type="button" id="aff" class="s1" value="Envoyer" >
+                        </td>
+                        <td>
+                            <input type="button" id="cl" class="s1" value="Clear" >
+                        </td>
+
+                    </tr>
+                   
+                    
+
+
+            </table>
+        </form>
+    </div>
+
+ 
+    <script>
+// EMAIL
+document.getElementById("mail").addEventListener("blur", function () {
+    let m = this.value;
+    let l3 = document.getElementById("l3");
+
+    if (m === "") {
+        l3.innerHTML = " Obligatoire";
+        l3.style.color = "red";
+        l3.style.display = "inline";
+    } else {
+        let regex = /[A-Za-z]+@[A-Za-z]+\.[A-Za-z]+/;
+
+        if (regex.test(m)) {
+            l3.style.display = "none";
+        } else {
+            l3.innerHTML = " Format Email invalide";
+            l3.style.color = "red";
+            l3.style.display = "inline";
+        }
+    }
+});
+
+
+// NOM
+document.getElementById("nom").addEventListener("blur", function () {
+    let nom = this.value;
+    let l1 = document.getElementById("l1");
+
+    if (nom === "") {
+        l1.innerHTML = " Obligatoire";
+        l1.style.color = "red";
+        l1.style.display = "inline";
+    } else {
+        l1.style.display = "none";
+    }
+});
+
+
+// TELEPHONE
+document.getElementById("phone").addEventListener("blur", function () {
+    let p = this.value;
+    let l7 = document.getElementById("l7");
+    let regex = /0[5-7]\d{8}$/;
+
+    if (regex.test(p)) {
+        l7.style.display = "none";
+    } else {
+        l7.innerHTML = " Format Téléphone invalide";
+        l7.style.color = "red";
+        l7.style.display = "inline";
+    }
+});
+
+
+// MOT DE PASSE
+document.getElementById("pass").addEventListener("blur", function () {
+    let pass = this.value;
+    let l4 = document.getElementById("l4");
+    let passco = document.getElementById("passco");
+    let l5 = document.getElementById("l5");
+
+    let regex = /((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))/;
+
+    if (regex.test(pass)) {
+        l4.style.display = "none";
+        passco.disabled = false;
+
+        passco.addEventListener("blur", function () {
+            if (pass === passco.value) {
+                l5.innerHTML = " Vérification réussie";
+                l5.style.color = "green";
+                l5.style.display = "inline";
+            } else {
+                l5.innerHTML = " Vérification échouée";
+                l5.style.color = "red";
+                l5.style.display = "inline";
+            }
+        });
+
+    } else {
+        l4.innerHTML = " Mot de passe faible !";
+        l4.style.color = "red";
+        l4.style.display = "inline";
+
+        passco.disabled = true;
+        l5.style.display = "none";
+    }
+});
+
+
+// SELECT OPTIONS
+document.getElementById("options").addEventListener("blur", function () {
+    let selectedOption = this.value;
+    let lo = document.getElementById("lo");
+
+    if (selectedOption === "raw") {
+        lo.innerHTML = " selectionner une option !";
+        lo.style.color = "red";
+        lo.style.display = "inline";
+    } else {
+        lo.style.display = "none";
+    }
+});
+
+    </script>
+</body>
+</html>
